@@ -5,11 +5,16 @@ import './index.css'
 import LoginPage from './Pages/login.jsx'
 import RegisterPage from './Pages/register.jsx'
 import HomePage from './Pages/home.jsx'
+import ProtectedRoute from './Components/Fragments/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage/>,
+    element: (
+      <ProtectedRoute>
+        <HomePage/>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",

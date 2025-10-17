@@ -1,34 +1,65 @@
+import { use, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../Components/Layouts/AuthLayout";
 import InputField from "../Components/Fragments/InputField";
 import Button from "../Components/Elements/Button";
 import { Link } from "react-router-dom";
+import {useAuthStore} from '../store/authStore'
 
 const RegisterPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const {register, isLoading, error} = useAuthStore();
+
+const handleRegister = async (e) => {
+    e.preventDefault();
+    if(password !== confirmPassword){
+        alert("password tidak sama")
+        return
+    }
+    const succes = await register(username, password);
+    if(succes){
+        alert("Registrasi berhasil")
+        navigate('/login')
+    }
+}
+
+
+
   return (
     <AuthLayout
       title="DAFTAR"
       subtitle="Selamat Datang!"
       background="bg-[url(/src/assets/image/bgregister.jpg)]"
     >
-      <form onSubmit="" className="flex flex-col space-y-4">
+      <form onSubmit={handleRegister} className="flex flex-col space-y-4">
         <InputField
           label="Username"
           id="username"
           type="text"
           placeholder="Masukan username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <InputField
           label="Password"
           id="password"
           type="password"
           placeholder="Masukan password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <InputField
           label="Password"
-          id="password"
+          id="confirmPassword"
           type="password"
           placeholder="Konfirmasi password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        {error && <p className="text-red-500">{error}</p>}
         <div className="flex justify-start">
           <p className="text-[#C1C2C4]">
             Sudah Punya Akun?{" "}
@@ -39,7 +70,7 @@ const RegisterPage = () => {
         </div>
         <div className="flex flex-col">
           <Button type="submit" variant="primary">
-            MASUK
+            {isLoading ? "Loading..." : "Daftar"}
           </Button>
           <div className="flex items-center justify-center gap-2">
             <p className="text-center text-sm text-[#C1C2C4]">Atau</p>

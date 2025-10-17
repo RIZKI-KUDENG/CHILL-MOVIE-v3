@@ -1,28 +1,50 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../Components/Layouts/AuthLayout";
 import InputField from "../Components/Fragments/InputField";
 import Button from "../Components/Elements/Button";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+
 
 const LoginPage = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const {login, isLoading, error, token} = useAuthStore();
+    useEffect(() => {
+        if(token){
+            navigate('/')
+        }
+    }, [token, navigate])
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        await login(username, password);
+    }
   return (
     <AuthLayout
       title="MASUK"
       subtitle="Selamat Datang Kembali!"
       background="bg-[url(/src/assets/image/bglogin.jpg)]"
     >
-      <form onSubmit="" className="flex flex-col space-y-4">
+      <form onSubmit={handleLogin} className="flex flex-col space-y-4">
         <InputField
           label="Username"
           id="username"
           type="text"
           placeholder="Masukan username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <InputField
           label="Password"
           id="password"
           type="password"
           placeholder="Masukan password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+        {error && <p className="text-red-500">{error}</p>}
         <div className="flex justify-between items-center text-sm gap-2 sm:gap-4 mt-2">
           <p className="text-[#C1C2C4]">
             Belum Punya Akun?{" "}
@@ -36,7 +58,7 @@ const LoginPage = () => {
         </div>
         <div className="flex flex-col">
           <Button type="submit" variant="primary">
-            MASUK
+            {isLoading ? "Loading..." : "Masuk"}
           </Button>
           <div className="flex items-center justify-center gap-2">
             <p className="text-center text-sm text-[#C1C2C4]">Atau</p>
