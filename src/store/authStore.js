@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export const useAuthStore = create((set, get) => ({
   user: JSON.parse(localStorage.getItem("users")) || null,
-  token: null,
+  token: localStorage.getItem("token") || null,
   isLoading: false,
   error: null,
 
@@ -35,7 +35,9 @@ export const useAuthStore = create((set, get) => ({
       if (isPasswordMatch) {
         const fakeToken = `fake-token-for ${foundUser.id}` 
         localStorage.setItem("user", JSON.stringify(foundUser));
+        localStorage.setItem("token", fakeToken);
         set({ user: foundUser,token: fakeToken, isLoading: false, error: null });
+        return true;
       } else {
         throw new Error("Password salah");
       }
@@ -47,6 +49,7 @@ export const useAuthStore = create((set, get) => ({
   },
   logout: () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     set({ user: null, token: null });
   },
 }));

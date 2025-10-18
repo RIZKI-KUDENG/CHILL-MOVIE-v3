@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../Components/Layouts/AuthLayout";
 import InputField from "../Components/Fragments/InputField";
@@ -11,15 +11,13 @@ const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const {login, isLoading, error, token} = useAuthStore();
-    useEffect(() => {
-        if(token){
-            navigate('/')
-        }
-    }, [token, navigate])
+    const {login, isLoading, error} = useAuthStore();
     const handleLogin = async (e) => {
         e.preventDefault();
-        await login(username, password);
+        const loginSucces = await login(username, password);
+        if(loginSucces){
+            navigate('/')
+        } 
     }
   return (
     <AuthLayout
