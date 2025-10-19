@@ -9,7 +9,7 @@ export const useAuthStore = create((set, get) => ({
   error: null,
 
   register: async (username, password) => {
-    set({ isLoading: true });
+    set({ isLoading: true});
     try {
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(password, salt);

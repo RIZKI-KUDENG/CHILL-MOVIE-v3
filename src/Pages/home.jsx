@@ -1,22 +1,37 @@
-import { useAuthStore } from "../store/authStore";
-const HomePage = () => {
-  const { logout } = useAuthStore();
+import Navbar from "../Components/Fragments/Hero/Navbar";
+import Hero from "../Components/Fragments/Hero/Hero";
+import { useMovies } from "../store/useMovies";
+import { useEffect } from "react";
+import MovieSlider from "../Components/Fragments/MovieSlider";
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = "/login";
-  };
-const username = JSON.parse(localStorage.getItem("user")).username
+const HomePage = () => {
+  const { getMovies, movies, isLoading } = useMovies();
+  useEffect(() => {
+    getMovies();
+  }, []);
+  const top = movies.filter((movie) => movie.kategori === "Top");
+  const New = movies.filter((movie) => movie.kategori === "New");
+  const trending = movies.filter((movie) => movie.kategori === "Trending");
+
   return (
-    <div className="h-screen w-full bg-gray-800 text-white flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold">Selamat Datang, {username}!</h1>
-      <p className="mt-2">Anda berhasil masuk ke halaman utama.</p>
-      <button
-        onClick={handleLogout}
-        className="mt-8 px-6 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
-      >
-        Logout
-      </button>
+    <div className="font-lato bg-[#181A1C] text-white">
+      <Navbar />
+      <Hero />
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <MovieSlider title="Top Movie" movies={top} />
+      )}
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <MovieSlider title="New Movie" movies={New} />
+      )}
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <MovieSlider title="Trending Movie" movies={trending} />
+      )}
     </div>
   );
 };

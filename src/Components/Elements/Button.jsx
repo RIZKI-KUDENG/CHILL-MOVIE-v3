@@ -2,25 +2,22 @@
 const Button = ({
   children,
   type = "button",
-  variant = "primary",
+  variant = "",
   onClick,
   className = "",
-  ...props // Untuk props lain seperti disabled, dll.
+  ...props
 }) => {
-  // Atur style dasar
-  let baseStyle = "py-3 rounded-full w-full transition-colors font-normal flex items-center justify-center gap-2";
 
-  // Tambahkan style berdasarkan varian
   if (variant === "primary") {
-    baseStyle += " bg-[#E7E3FC3B] hover:bg-opacity-80";
+    className += "py-3 rounded-full w-full transition-colors font-normal flex items-center justify-center gap-2 bg-[#E7E3FC3B] hover:bg-[#E7E3FC3B] hover:bg-opacity-80";
   } else if (variant === "secondary") {
-    baseStyle += " bg-transparent border border-[#E7E3FC3B] hover:bg-[#E7E3FC3B] hover:bg-opacity-20";
+    className += "py-3 rounded-full w-full transition-colors font-normal flex items-center justify-center gap-2 bg-transparent border border-[#E7E3FC3B] hover:bg-[#E7E3FC3B] hover:bg-opacity-20";
   }
   
   return (
     <button
       type={type}
-      className={`${baseStyle} ${className}`}
+      className={`${className}`}
       onClick={onClick}
       {...props}
     >
