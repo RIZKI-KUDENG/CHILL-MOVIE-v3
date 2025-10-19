@@ -2,7 +2,8 @@ import Navbar from "../Components/Fragments/Hero/Navbar";
 import Hero from "../Components/Fragments/Hero/Hero";
 import { useMovies } from "../store/useMovies";
 import { useEffect } from "react";
-import MovieSlider from "../Components/Fragments/MovieSlider";
+import MovieSlider from "../Components/Fragments/Movies/MovieSlider";
+import Footer from "../Components/Fragments/Footer/Index";
 
 const HomePage = () => {
   const { getMovies, movies, isLoading } = useMovies();
@@ -14,8 +15,7 @@ const HomePage = () => {
   const trending = movies.filter((movie) => movie.kategori === "Trending");
 
   return (
-    <div className="font-lato bg-[#181A1C] text-white">
-      <Navbar />
+    <>
       <Hero />
       {isLoading ? (
         <h1>Loading...</h1>
@@ -32,7 +32,7 @@ const HomePage = () => {
       ) : (
         <MovieSlider title="Trending Movie" movies={trending} />
       )}
-    </div>
+    </>
   );
 };
 

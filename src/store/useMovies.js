@@ -19,5 +19,20 @@ export const useMovies = create((set)=> ({
             set({isLoading: false, error: errorMessage})
             return false
         }
+    },
+    addMovie: async (newMovie) => {
+        set({isLoading: true})
+        try {
+            const response = await apiClient.post("/movies", newMovie);
+            if(!response){
+                throw new Error("Failed to add movie")
+            }
+            set({isLoading: false})
+            return true
+        }catch (err){
+            const errorMessage = err.response.data.message || err.message;
+            set({isLoading: false, error: errorMessage})
+            return false
+        }
     }
 }))

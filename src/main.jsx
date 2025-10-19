@@ -5,18 +5,35 @@ import "./index.css";
 import LoginPage from "./Pages/login.jsx";
 import RegisterPage from "./Pages/register.jsx";
 import HomePage from "./Pages/home.jsx";
-import ProtectedRoute from "./Components/Fragments/ProtectedRoute.jsx";
-import PublicRoute from "./Components/Fragments/PublicRoute.jsx";
+import ProtectedRoute from "./Components/Fragments/Routes/ProtectedRoute.jsx";
+import PublicRoute from "./Components/Fragments/Routes/PublicRoute.jsx";
+import MainLayout from "./Components/Layouts/MainLayout.jsx";
+import EditMoviePage from "./Pages/editMovie.jsx";
+
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <ProtectedRoute>
-        <HomePage />
-      </ProtectedRoute>
-    ),
-  },
+ {
+  path:"/",
+  element: <MainLayout/>,
+  children:[
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <HomePage />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/editmovie",
+      element: (
+        <ProtectedRoute>
+          <EditMoviePage />
+        </ProtectedRoute>
+      ),
+    }
+  ]
+},
   {
     path: "/login",
     element: (

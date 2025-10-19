@@ -1,6 +1,6 @@
 import { useDropdown } from "../../store/useDropdown";
 import { useAuthStore } from "../../store/authStore";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 const AvatarDropdown = () => {
   const { isOpen, onOpen, onClose } = useDropdown();
   const handleOpen = () => {
@@ -30,7 +30,7 @@ const AvatarDropdown = () => {
         onClick={handleOpen}
       />
       <div className={`relative z-10 ${isOpen ? "block" : "hidden"}`}>
-        <ul className="absolute top-3 right-0 bg-[#181A1C] w-35 md:w-35 md:h-35 flex flex-col gap-3 md:gap-6">
+        <ul className="absolute top-3 right-0 bg-[#181A1C] w-35 md:w-35 md:h-49 flex flex-col gap-3 md:gap-6">
           <li className="flex items-center text-sm md:text-lg text-[#3254FF]">
             <img
               src="/src/assets/homeimage/akun.png"
@@ -46,6 +46,11 @@ const AvatarDropdown = () => {
               className="w-3 md:w-4 h-3 md:h-4"
             />
             <a href="#">Ubah premium</a>
+          </li>
+          <li>
+            <Link className="text-sm md:text-lg" to="/editmovie">
+              Edit Movie
+            </Link>
           </li>
           <li
             onClick={handleLogout}

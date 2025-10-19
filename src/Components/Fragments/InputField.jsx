@@ -1,4 +1,12 @@
-const InputField = ({ label, id, type, placeholder, value, onChange, ...props }) => {
+const InputField = ({
+  label,
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+  ...props
+}) => {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-sm text-gray-200">
@@ -6,7 +14,7 @@ const InputField = ({ label, id, type, placeholder, value, onChange, ...props })
       </label>
       <input
         id={id}
-        name={id} 
+        name={id}
         type={type}
         placeholder={placeholder}
         value={value}
