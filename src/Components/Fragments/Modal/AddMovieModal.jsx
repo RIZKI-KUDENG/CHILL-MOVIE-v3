@@ -44,25 +44,25 @@ const AddMovieModal = ({ onClose }) => {
         <form action="" onSubmit={handleSubmit} className="p-2">
           <InputField
             name="title"
-            text="Edit Title"
+            text="Masukan Title"
             type="text"
-            placeholder="Edit Title"
+            placeholder="Contoh: Avengers"
             value={formData.title}
             onChange={handleChange}
           />
           <InputField
             name="image"
-            text="Edit Image"
+            text="Masukan Image"
             type="text"
-            placeholder="Edit Image URL"
+            placeholder="Contoh: https://..."
             value={formData.image}
             onChange={handleChange}
           />
           <InputField
             name="kategori"
-            text="Edit Kategori"
+            text="Masukan Kategori"
             type="text"
-            placeholder="Edit Kategori"
+            placeholder="Contoh: Top, New, Trending"
             value={formData.kategori}
             onChange={handleChange}
           />
